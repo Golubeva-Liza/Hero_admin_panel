@@ -1,29 +1,66 @@
 {
-    "heroes": [
-        {
-            "id": 1,
-            "name": "Первый герой",
-            "description": "Первый герой в рейтинге!",
-            "element": "fire"
-        },
-        {
-            "id": 2,
-            "name": "Неизвестный герой",
-            "description": "Скрывающийся в тени",
-            "element": "wind"
-        },
-        {
-            "id": 3,
-            "name": "Морской герой",
-            "description": "Как аквамен, но не из DC",
-            "element": "water"
-        }
-    ],
-    "filters": [
-        "all",
-        "fire",
-        "water",
-        "wind",
-        "earth"
-    ]
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": "cf02146a-1406-469a-a112-c128f5dc73ea",
+      "name": "Герой воды",
+      "description": "Он умеет плавать",
+      "element": "water"
+    },
+    {
+      "id": "498d28cc-ef3d-4c01-9555-e3ed9dae2029",
+      "name": "Герой ветра",
+      "description": "Создает нереальные ураганы",
+      "element": "wind"
+    },
+    {
+      "id": "5f1fcabc-5e3a-464b-8bae-2f0dcb3eb535",
+      "name": "Герой земли",
+      "description": "Быстро передвигается по земле (отсылка на jojo5)",
+      "element": "earth"
+    }
+  ],
+  "filters": [
+    {
+      "id": 1,
+      "name": "all",
+      "label": "Все",
+      "class": "btn-outline-dark"
+    },
+    {
+      "id": 2,
+      "name": "fire",
+      "label": "Огонь",
+      "class": "btn-danger"
+    },
+    {
+      "id": 3,
+      "name": "water",
+      "label": "Вода",
+      "class": "btn-primary"
+    },
+    {
+      "id": 4,
+      "name": "wind",
+      "label": "Ветер",
+      "class": "btn-success"
+    },
+    {
+      "id": 5,
+      "name": "earth",
+      "label": "Земля",
+      "class": "btn-secondary"
+    }
+  ]
 }
