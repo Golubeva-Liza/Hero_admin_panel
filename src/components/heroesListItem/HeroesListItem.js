@@ -9,7 +9,6 @@ import {
 
 const HeroesListItem = ({ id, name, description, element = "default"}) => {
 
-   const { heroes } = useSelector((state) => state);
    const dispatch = useDispatch();
    const { request } = useHttp();
 
@@ -54,21 +53,3 @@ const HeroesListItem = ({ id, name, description, element = "default"}) => {
 };
 
 export default HeroesListItem;
-
-
-   // switch (element) {
-   //    case "fire":
-   //       elementClassName = "bg-danger bg-gradient";
-   //       break;
-   //    case "water":
-   //       elementClassName = "bg-primary bg-gradient";
-   //       break;
-   //    case "wind":
-   //       elementClassName = "bg-success bg-gradient";
-   //       break;
-   //    case "earth":
-   //       elementClassName = "bg-secondary bg-gradient";
-   //       break;
-   //    default:
-   //       elementClassName = "bg-warning bg-gradient";
-   // }

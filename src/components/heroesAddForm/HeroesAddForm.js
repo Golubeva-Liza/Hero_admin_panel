@@ -2,16 +2,19 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
-
+import { useMemo } from "react";
 import {
    setFormValue,
    addHero
 } from "../../actions";
 
 const HeroesAddForm = () => {
-   const { filters, heroName, heroDescr, heroElem } = useSelector((state) => state);
+   const { filters, filtersLoadingStatus } = useSelector((state) => state.filters);
+   const { heroName, heroDescr, heroElem } = useSelector((state) => state.reducer);
    const dispatch = useDispatch();
    const { request } = useHttp();
+
+   //элементы формы необязательно помещать в reducer, если не используются где-то еще. можно воспользоваться useState
 
    const onSubmitForm = () => {
       if (!heroName || !heroDescr || heroElem === 'default'){
@@ -32,8 +35,25 @@ const HeroesAddForm = () => {
             dispatch(setFormValue('heroDescr', ''));
             dispatch(setFormValue('heroElem', 'default'));
          })
-         // .catch(() => dispatch(heroesFetchingError()));
    }
+
+   const renderFiltersList = (arr) => {
+      if (filtersLoadingStatus === "loading") {
+         return <option>Загрузка элементов</option>;
+      } else if (filtersLoadingStatus === "error") {
+         return <option>Ошибка загрузки</option>;
+      }
+
+      if (arr && arr.length > 0){
+         return arr.map(el => {
+            if (el.name !== 'all'){
+               return <option key={el.id} value={el.name}>{el.label}</option>
+            }
+         })
+      }
+   };
+
+   const filtersElems = useMemo(() => renderFiltersList(filters), [filters, filtersLoadingStatus]);
 
    return (
       <form className="border p-4 shadow-lg rounded" onSubmit={e => e.preventDefault()}>
@@ -82,11 +102,7 @@ const HeroesAddForm = () => {
                onChange={(e) => dispatch(setFormValue('heroElem', e.target.value))}
             >
                <option value="default">Я владею элементом...</option>
-               {filters.map(el => {
-                  if (el.name !== 'all'){
-                     return <option key={el.id} value={el.name}>{el.label}</option>
-                  }
-               })}
+               {filtersElems}
             </select>
          </div>
 

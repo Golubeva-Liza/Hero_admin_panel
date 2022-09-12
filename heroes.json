@@ -19,16 +19,22 @@
       "element": "water"
     },
     {
-      "id": "498d28cc-ef3d-4c01-9555-e3ed9dae2029",
-      "name": "Герой ветра",
-      "description": "Создает нереальные ураганы",
-      "element": "wind"
-    },
-    {
       "id": "5f1fcabc-5e3a-464b-8bae-2f0dcb3eb535",
       "name": "Герой земли",
       "description": "Быстро передвигается по земле (отсылка на jojo5)",
       "element": "earth"
+    },
+    {
+      "id": "de65413d-f8de-4360-aa4e-e8ec05bcb53e",
+      "name": "bloke",
+      "description": "nijego",
+      "element": "fire"
+    },
+    {
+      "id": "a7e846fa-eb81-408b-83f4-3c417fe75c7e",
+      "name": "blink",
+      "description": "орор",
+      "element": "water"
     }
   ],
   "filters": [

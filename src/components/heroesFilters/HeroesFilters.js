@@ -1,19 +1,19 @@
 import { useHttp } from "../../hooks/http.hook";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilters, setActiveFilter } from "../../actions";
+import { filtersFetching, setFilters, filtersFetchingError, setActiveFilter } from "../../actions";
 
 
 const HeroesFilters = () => {
-   const { filters, activeFilter } = useSelector((state) => state); //достаем состояние filters
+   const { filters, activeFilter } = useSelector((state) => state.filters); //достаем состояние filters
    const dispatch = useDispatch();
    const { request } = useHttp();
 
    useEffect(() => {
-      request("http://localhost:3001/filters").then((data) =>
-         dispatch(setFilters(data))
-      );
-      // .catch(() => dispatch(heroesFetchingError()));
+      dispatch(filtersFetching());
+      request("http://localhost:3001/filters")
+         .then((data) =>dispatch(setFilters(data)))
+         .catch(() => dispatch(filtersFetchingError()));
    }, []);
 
    const renderFiltersList = (arr) => {
