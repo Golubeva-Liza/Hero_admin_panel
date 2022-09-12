@@ -1,3 +1,17 @@
+export const fetchHeroes = (request) => (dispatch) => {
+   dispatch(heroesFetching());
+   request("http://localhost:3001/heroes")
+      .then((data) => dispatch(heroesFetched(data)))
+      .catch(() => dispatch(heroesFetchingError()));
+}
+
+export const fetchFilters = (request) => (dispatch) => {
+   dispatch(filtersFetching());
+   request("http://localhost:3001/filters")
+      .then((data) =>dispatch(setFilters(data)))
+      .catch(() => dispatch(filtersFetchingError()));
+}
+
 export const heroesFetching = () => {
    return {
       type: "HEROES_FETCHING",
@@ -42,6 +56,16 @@ export const setActiveFilter = (filter) => {
       payload: filter,
    };
 };
+
+//благодаря ReduxThunk мы можем в качестве действий указывать функцию
+// export const setActiveFilter = (filter) => (dispatch) =>{
+//    setTimeout(() => {
+//       dispatch({
+//          type: "ACTIVE_FILTER",
+//          payload: filter,
+//       })
+//    }, 1000)
+// };
 
 export const deleteHero = (id) => {
    return {

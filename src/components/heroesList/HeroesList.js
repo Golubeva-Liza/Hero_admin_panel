@@ -3,9 +3,7 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-   heroesFetching,
-   heroesFetched,
-   heroesFetchingError,
+   fetchHeroes,
 } from "../../actions";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
@@ -18,10 +16,8 @@ const HeroesList = () => {
    const { request } = useHttp();
 
    useEffect(() => {
-      dispatch(heroesFetching());
-      request("http://localhost:3001/heroes")
-         .then((data) => dispatch(heroesFetched(data)))
-         .catch(() => dispatch(heroesFetchingError()));
+      //одна из главных задач thunk - передавать функцию, которая будет что-то асинхронно делать
+      dispatch(fetchHeroes(request))
    }, []);
 
 
