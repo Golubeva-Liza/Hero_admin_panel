@@ -1,3 +1,6 @@
+import { createAction } from "@reduxjs/toolkit";
+//функция nanoid содержится в toolkit, служит для генерации id
+
 export const fetchHeroes = (request) => (dispatch) => {
    dispatch(heroesFetching());
    request("http://localhost:3001/heroes")
@@ -12,24 +15,32 @@ export const fetchFilters = (request) => (dispatch) => {
       .catch(() => dispatch(filtersFetchingError()));
 }
 
-export const heroesFetching = () => {
-   return {
-      type: "HEROES_FETCHING",
-   };
-};
+// export const heroesFetching = () => {
+//    return {
+//       type: "HEROES_FETCHING",
+//    };
+// };
 
-export const heroesFetched = (heroes) => {
-   return {
-      type: "HEROES_FETCHED",
-      payload: heroes,
-   };
-};
+//createAction принимает 2 аргумента - тип действия и вспомогательную функцию
+export const heroesFetching = createAction("HEROES_FETCHING");
 
-export const heroesFetchingError = () => {
-   return {
-      type: "HEROES_FETCHING_ERROR",
-   };
-};
+//аргумент, приходящий в action creator, автоматически переходит в поле payload. но другие аргументы игнорируются
+//поэтому нужно передавать только одно поле
+export const heroesFetched = createAction("HEROES_FETCHED");
+
+// export const heroesFetched = (heroes) => {
+//    return {
+//       type: "HEROES_FETCHED",
+//       payload: heroes,
+//    };
+// };
+
+// export const heroesFetchingError = () => {
+//    return {
+//       type: "HEROES_FETCHING_ERROR",
+//    };
+// };
+export const heroesFetchingError = createAction("HEROES_FETCHING_ERROR");
 
 export const filtersFetching = () => {
    return {
@@ -67,19 +78,21 @@ export const setActiveFilter = (filter) => {
 //    }, 1000)
 // };
 
-export const deleteHero = (id) => {
-   return {
-      type: "HERO_DELETING",
-      payload: id,
-   };
-};
+// export const deleteHero = (id) => {
+//    return {
+//       type: "HERO_DELETING",
+//       payload: id,
+//    };
+// };
+export const deleteHero = createAction("HERO_DELETING");
 
-export const addHero = (hero) => {
-   return {
-      type: "HERO_ADDING",
-      payload: hero,
-   };
-};
+export const addHero = createAction("HERO_ADDING");
+// export const addHero = (hero) => {
+//    return {
+//       type: "HERO_ADDING",
+//       payload: hero,
+//    };
+// };
 
 export const setFormValue = (state, value) => {
    return {
