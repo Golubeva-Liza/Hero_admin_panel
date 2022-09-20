@@ -1,7 +1,8 @@
 import { useHttp } from "../../hooks/http.hook";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFilters, setActiveFilter } from "../../actions";
+import { fetchFilters } from "../../actions";
+import { setActiveFilter } from "./filtersSlice";
 
 
 const HeroesFilters = () => {

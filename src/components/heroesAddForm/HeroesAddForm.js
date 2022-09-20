@@ -2,38 +2,40 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { useHttp } from "../../hooks/http.hook";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
-   setFormValue,
    addHero
-} from "../../actions";
+} from "../heroesList/heroesSlice";
 
 const HeroesAddForm = () => {
    const { filters, filtersLoadingStatus } = useSelector((state) => state.filters);
-   const { heroName, heroDescr, heroElem } = useSelector((state) => state.reducer);
    const dispatch = useDispatch();
    const { request } = useHttp();
 
    //элементы формы необязательно помещать в reducer, если не используются где-то еще. можно воспользоваться useState
+   const [nameInput, setNameInput] = useState('');
+   const [descrInput, setDescrInput] = useState('');
+   const [elemInput, setElemInput] = useState('');
 
+   
    const onSubmitForm = () => {
-      if (!heroName || !heroDescr || heroElem === 'default'){
+      if (!nameInput || !descrInput || elemInput === 'default'){
          return;
       }
 
       const newHero = {
          id: uuidv4(),
-         name: heroName,
-         description: heroDescr,
-         element: heroElem
+         name: nameInput,
+         description: descrInput,
+         element: elemInput
       };
 
       request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
          .then(() => dispatch(addHero(newHero)))
          .then(() => {
-            dispatch(setFormValue('heroName', ''));
-            dispatch(setFormValue('heroDescr', ''));
-            dispatch(setFormValue('heroElem', 'default'));
+            setNameInput('');
+            setDescrInput('');
+            setElemInput('default');
          })
    }
 
@@ -68,8 +70,8 @@ const HeroesAddForm = () => {
                className="form-control"
                id="name"
                placeholder="Как меня зовут?"
-               value={heroName}
-               onChange={(e) => dispatch(setFormValue('heroName', e.target.value))}
+               value={nameInput}
+               onChange={(e) => setNameInput(e.target.value)}
             />
          </div>
 
@@ -84,8 +86,8 @@ const HeroesAddForm = () => {
                id="text"
                placeholder="Что я умею?"
                style={{ height: "130px" }}
-               value={heroDescr}
-               onChange={(e) => dispatch(setFormValue('heroDescr', e.target.value))}
+               value={descrInput}
+               onChange={(e) => setDescrInput(e.target.value)}
             />
          </div>
 
@@ -98,8 +100,8 @@ const HeroesAddForm = () => {
                className="form-select"
                id="element"
                name="element"
-               value={heroElem}
-               onChange={(e) => dispatch(setFormValue('heroElem', e.target.value))}
+               value={elemInput}
+               onChange={(e) => setElemInput(e.target.value)}
             >
                <option value="default">Я владею элементом...</option>
                {filtersElems}

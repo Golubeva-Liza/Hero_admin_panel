@@ -25,16 +25,10 @@
       "element": "earth"
     },
     {
-      "id": "de65413d-f8de-4360-aa4e-e8ec05bcb53e",
-      "name": "bloke",
-      "description": "nijego",
-      "element": "fire"
-    },
-    {
-      "id": "a7e846fa-eb81-408b-83f4-3c417fe75c7e",
-      "name": "blink",
-      "description": "орор",
-      "element": "water"
+      "id": "7df13931-69d5-4d8c-a024-cf77ebce212a",
+      "name": "Новый герой",
+      "description": "летать",
+      "element": "wind"
     }
   ],
   "filters": [

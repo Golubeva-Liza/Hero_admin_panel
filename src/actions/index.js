@@ -1,4 +1,5 @@
-import { createAction } from "@reduxjs/toolkit";
+import {heroesFetched, heroesFetchingError, heroesFetching} from '../components/heroesList/heroesSlice';
+import {filtersFetching, filtersFetchingError, setFilters} from '../components/heroesFilters/filtersSlice';
 //функция nanoid содержится в toolkit, служит для генерации id
 
 export const fetchHeroes = (request) => (dispatch) => {
@@ -14,92 +15,3 @@ export const fetchFilters = (request) => (dispatch) => {
       .then((data) =>dispatch(setFilters(data)))
       .catch(() => dispatch(filtersFetchingError()));
 }
-
-// export const heroesFetching = () => {
-//    return {
-//       type: "HEROES_FETCHING",
-//    };
-// };
-
-//createAction принимает 2 аргумента - тип действия и вспомогательную функцию
-export const heroesFetching = createAction("HEROES_FETCHING");
-
-//аргумент, приходящий в action creator, автоматически переходит в поле payload. но другие аргументы игнорируются
-//поэтому нужно передавать только одно поле
-export const heroesFetched = createAction("HEROES_FETCHED");
-
-// export const heroesFetched = (heroes) => {
-//    return {
-//       type: "HEROES_FETCHED",
-//       payload: heroes,
-//    };
-// };
-
-// export const heroesFetchingError = () => {
-//    return {
-//       type: "HEROES_FETCHING_ERROR",
-//    };
-// };
-export const heroesFetchingError = createAction("HEROES_FETCHING_ERROR");
-
-export const filtersFetching = () => {
-   return {
-      type: 'FILTERS_FETCHING'
-   }
-}
-
-export const filtersFetchingError = () => {
-   return {
-      type: 'FILTERS_FETCHING_ERROR'
-   }
-}
-
-export const setFilters = (filters) => {
-   return {
-      type: "FILTERS_FETCHED",
-      payload: filters,
-   };
-};
-
-export const setActiveFilter = (filter) => {
-   return {
-      type: "ACTIVE_FILTER",
-      payload: filter,
-   };
-};
-
-//благодаря ReduxThunk мы можем в качестве действий указывать функцию
-// export const setActiveFilter = (filter) => (dispatch) =>{
-//    setTimeout(() => {
-//       dispatch({
-//          type: "ACTIVE_FILTER",
-//          payload: filter,
-//       })
-//    }, 1000)
-// };
-
-// export const deleteHero = (id) => {
-//    return {
-//       type: "HERO_DELETING",
-//       payload: id,
-//    };
-// };
-export const deleteHero = createAction("HERO_DELETING");
-
-export const addHero = createAction("HERO_ADDING");
-// export const addHero = (hero) => {
-//    return {
-//       type: "HERO_ADDING",
-//       payload: hero,
-//    };
-// };
-
-export const setFormValue = (state, value) => {
-   return {
-      type: "SET_FORM_VALUE",
-      payload: {
-         state,
-         value 
-      }
-   };
-};

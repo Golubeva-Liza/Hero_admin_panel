@@ -1,10 +1,10 @@
 import { useHttp } from "../../hooks/http.hook";
-import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
+import { useDispatch } from "react-redux";
 
 import {
    deleteHero
-} from "../../actions";
+} from "../heroesList/heroesSlice";
 
 
 const HeroesListItem = ({ id, name, description, element = "default"}) => {
