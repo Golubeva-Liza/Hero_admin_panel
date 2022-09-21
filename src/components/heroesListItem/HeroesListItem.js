@@ -1,16 +1,10 @@
-import { useHttp } from "../../hooks/http.hook";
 import { useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import {
-   deleteHero
-} from "../../actions";
+import { useDeleteHeroMutation } from "../../api/apiSlice";
 
 
 const HeroesListItem = ({ id, name, description, element = "default"}) => {
 
-   const dispatch = useDispatch();
-   const { request } = useHttp();
+   const [deleteHero] = useDeleteHeroMutation();
 
    let elementClassName = useMemo(() => ({
       fire: "bg-danger bg-gradient",
@@ -22,8 +16,7 @@ const HeroesListItem = ({ id, name, description, element = "default"}) => {
 
    
    const deletingHero = () => {
-      request(`http://localhost:3001/heroes/${id}`, "DELETE")
-         .then(() => dispatch(deleteHero(id)))
+      deleteHero(id);
    }
 
    return (
