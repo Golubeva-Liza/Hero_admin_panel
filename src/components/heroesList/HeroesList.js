@@ -1,33 +1,27 @@
-import { useHttp } from "../../hooks/http.hook";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetHeroesQuery } from "../../api/apiSlice";
 
-import {
-   fetchHeroes,
-} from "../../actions";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
 
 
-const HeroesList = () => {
-   const { heroes, heroesLoadingStatus } = useSelector((state) => state.heroes);
-   const { activeFilter } = useSelector((state) => state.filters);
-   const dispatch = useDispatch();
-   const { request } = useHttp();
 
-   useEffect(() => {
-      //одна из главных задач thunk - передавать функцию, которая будет что-то асинхронно делать
-      dispatch(fetchHeroes(request))
-   }, []);
+const HeroesList = () => {
+   // const { heroes, heroesLoadingStatus } = useSelector((state) => state.heroes);
+   const { activeFilter } = useSelector((state) => state.filters);
+
+   const {
+      data: heroes2 = [],
+      isFetching,//последюущие запросы
+      isLoading,//первый запрос
+      isSuccess,
+      isError,
+      error
+   } = useGetHeroesQuery(); //useEffect, useSelector и useDispatch не нужны, все делается автоматически. запрос делается при моунтинге.
 
 
    const renderHeroesList = (arr) => {
-      if (heroesLoadingStatus === "loading") {
-         return <Spinner />;
-      } else if (heroesLoadingStatus === "error") {
-         return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
-      }
-
       if (arr.length === 0) {
          return <h5 className="text-center mt-5">Героев пока нет</h5>;
       }
@@ -40,10 +34,15 @@ const HeroesList = () => {
 
    };
 
-   const elements = useMemo(() => renderHeroesList(heroes), [heroes, heroesLoadingStatus, activeFilter]);
+   const elements = useMemo(() => renderHeroesList(heroes2), [heroes2, activeFilter]);
 
    return (
-      <ul>{elements}</ul>
+      <>
+         {isLoading ? <Spinner /> : null}
+         {isError ? <h5 className="text-center mt-5">Ошибка загрузки</h5> : null}
+         {!isLoading && !isError ?  <ul>{elements}</ul> : null}
+      </>
+
    );
 };
 

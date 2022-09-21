@@ -7,10 +7,14 @@ import {
    addHero
 } from "../heroesList/heroesSlice";
 
+import { useCreateHeroMutation } from '../../api/apiSlice';
+
 const HeroesAddForm = () => {
    const { filters, filtersLoadingStatus } = useSelector((state) => state.filters);
    const dispatch = useDispatch();
    const { request } = useHttp();
+
+   const [createHero, {isLoading}] = useCreateHeroMutation(); //первое - функция, делающая запрос; второе - объект с данными о состоянии запроса
 
    //элементы формы необязательно помещать в reducer, если не используются где-то еще. можно воспользоваться useState
    const [nameInput, setNameInput] = useState('');
@@ -30,13 +34,15 @@ const HeroesAddForm = () => {
          element: elemInput
       };
 
-      request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
-         .then(() => dispatch(addHero(newHero)))
-         .then(() => {
-            setNameInput('');
-            setDescrInput('');
-            setElemInput('default');
-         })
+      // request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
+      //    .then(() => dispatch(addHero(newHero)))
+      //    .then(() => {
+      //       setNameInput('');
+      //       setDescrInput('');
+      //       setElemInput('default');
+      //    })
+
+      createHero(newHero).unwrap();
    }
 
    const renderFiltersList = (arr) => {
